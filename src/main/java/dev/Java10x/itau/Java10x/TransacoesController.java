@@ -14,15 +14,19 @@ public class TransacoesController {
 
     @Autowired
     private TransacaoService transacaoService;
-
+    @Autowired
+    private TransacaoRepository transacaoRepository;
     @PostMapping
     public ResponseEntity<Transacao> adicionar(@RequestBody TransacaoDTO transacaoDTO){
 
         try{
             transacaoService.validarTransacao(transacaoDTO);
+            transacaoRepository.salvarDados(transacaoDTO);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }catch (IllegalArgumentException exception){
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
 
