@@ -1,12 +1,10 @@
 package dev.Java10x.itau.Java10x;
 
+import com.sun.source.tree.TryTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/transacao")
@@ -17,8 +15,8 @@ public class TransacoesController {
     @Autowired
     private TransacaoRepository transacaoRepository;
     @PostMapping
-    public ResponseEntity<Transacao> adicionar(@RequestBody TransacaoDTO transacaoDTO){
-
+    public ResponseEntity adicionar(@RequestBody TransacaoDTO transacaoDTO){
+    //response sem tipagem por que não devolve nada, o .build é por que não devolve corpo na requisição
         try{
             transacaoService.validarTransacao(transacaoDTO);
             transacaoRepository.salvarDados(transacaoDTO);
@@ -29,9 +27,12 @@ public class TransacoesController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
+    }
 
-
-
+    @DeleteMapping("/delete")
+    public ResponseEntity deletar(@RequestBody TransacaoDTO transacaoDTO){
+            transacaoRepository.deletarDados();
+            return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 
