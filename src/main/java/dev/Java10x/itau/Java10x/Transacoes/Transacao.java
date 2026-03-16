@@ -1,4 +1,4 @@
-package dev.Java10x.itau.Java10x;
+package dev.Java10x.itau.Java10x.Transacoes;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,7 @@ import java.time.OffsetDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TransacaoDTO {
+public class Transacao {
 
     private BigDecimal valor;
     private OffsetDateTime dataHora;
