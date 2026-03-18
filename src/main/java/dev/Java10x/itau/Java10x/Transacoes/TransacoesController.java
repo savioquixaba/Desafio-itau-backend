@@ -1,10 +1,12 @@
 package dev.Java10x.itau.Java10x.Transacoes;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/transacao")
 public class TransacoesController {
@@ -21,6 +23,7 @@ public class TransacoesController {
             transacaoRepository.salvarDados(transacaoDTO);
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }catch (IllegalArgumentException exception){
+            log.error("Erro em uma ou mais validações, tente novamente!");
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
